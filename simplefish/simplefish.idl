@@ -1,0 +1,51 @@
+// simplefish.idl : IDL source for simplefish
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (simplefish.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(71DEA974-4A76-45AB-A777-8A1226038961),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface Isimlpcalc : IDispatch{
+	[id(1)] HRESULT Calculate([in] VARIANT_BOOL a_bFireEvent, [out,retval] LONG* a_lTotalMarks);
+	[propget, id(2)] HRESULT ComMark([out, retval] LONG* pVal);
+	[propput, id(2)] HRESULT ComMark([in] LONG newVal);
+	[propget, id(3)] HRESULT AtlMarks([out, retval] LONG* pVal);
+	[propput, id(3)] HRESULT AtlMarks([in] LONG newVal);
+	[propget, id(4)] HRESULT StudentName([out, retval] BSTR* pVal);
+	[propput, id(4)] HRESULT StudentName([in] BSTR newVal);
+};
+[
+	uuid(37FABE2F-323E-450B-8946-3F8B8820DC6E),
+	version(1.0),
+]
+library simplefishLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(860873BC-F19D-48B4-98FE-542417EB02AC)		
+	]
+	dispinterface _IsimlpcalcEvents
+	{
+		properties:
+		methods:
+			[id(1)] HRESULT TotalMarks([in] LONG a_lTotalMarks);
+	};
+	[
+		uuid(146A9088-D3E3-403A-89E0-5ADB4CFF626C)		
+	]
+	coclass simlpcalc
+	{
+		[default] interface Isimlpcalc;
+		[default, source] dispinterface _IsimlpcalcEvents;
+	};
+};
+
